@@ -1,7 +1,6 @@
 /* ------------------------------------------------------
 CMP2801M: Advanced Programming
-Driver program for assignment
-Fall 2019
+Base driver code for assignment, written in Fall 2019
 
 Base driver code written by Ayse Kucukyilmaz. The assignment
 required the driver code to be developed on. To view the
@@ -26,7 +25,6 @@ original driver code, see the "Driver Original" file.
 * 
 * The driver code follows the function definition format of clarifying complex/unclear lines, while
 * adding comments to explain structure of code (as main is a free function so has no class comment)
-* Note that original comments have been left in
 */
 #include "Shape.h"
 #include "Circle.h"
@@ -43,8 +41,8 @@ using namespace std;
 int main()
 {
 	string userCommand;
-	vector <Shape*> shapes;     // this one will hold your shapes
-	vector <string> parameters; // this one will hold parameters for the commands
+	vector <Shape*> shapes;     // holds shapes
+	vector <string> parameters; // holds parameters
 
 	//Error messages for invalid input format: defined outside loop and using functions to make code more readable
 	const string RECTANGLE_FORMAT_ERROR = inputValidation::getShapeFormatError("Rectangle", "height and a width");
@@ -68,9 +66,8 @@ int main()
 		char* cstr = new char[userCommand.length() + 1];
 
 		strcpy_s(cstr, userCommand.length() + 1, userCommand.c_str());
-		// implement a string tokenizer to populate the parameters vector 
-		// check function strtok_s
 
+		//Tokenizing string to populate parameter vector
 		/*
 		* Main source inspiring code: 
 		* https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/strtok-s-strtok-s-l-wcstok-s-wcstok-s-l-mbstok-s-mbstok-s-l?view=msvc-170
@@ -109,12 +106,10 @@ int main()
 			delete[] cstr;
 			continue;
 		}
-		// as a result of the process, parameters[0] should hold your command, followed by your parameters 
+		// as a result of the process, parameters[0] holds the command
 		string command = parameters[0];
 
 
-		// in the following code, consider checking for the arguments.
-		// in case of too few arguments, you may remind the user the correct format
 
 		/*
 		* Summary of input validation: functions handle checks for enough inputs, valid shape indexes, non-negative
@@ -129,13 +124,10 @@ int main()
 
 			// Checks if the user entered all the required arguments, reminds user of format if not
 			if (inputValidation::checkIndex(5, parameters, RECTANGLE_FORMAT_ERROR)) {
-		 
-				// get parameters in the correct order
-				// The following four lines have a type mismatch error
-				// note that the the parameters vector contains ascii values
-				// HINT: stoi function converts from string to int
+		 				
 				try {
-					int x = stoi(parameters[1]); // fix me! also note that x is not previously defined :(
+					//assigns parameters based on context
+					int x = stoi(parameters[1]); 
 					int y = stoi(parameters[2]);
 					int h = stoi(parameters[3]);
 					int w = stoi(parameters[4]);
@@ -145,9 +137,9 @@ int main()
 
 						Rectangle* r = new Rectangle(x, y, h, w);
 						shapes.push_back(r);
-						/*cout << r->toString(); /* instead of this, you may implement operator overloadig and
-												use cout << r which will give you additional points */
-						//Operator overload replaced for all other prewritten code
+						
+						//"<<" operator overloaded to call toString function
+						//Outputs derived class functionality as function is virtual
 						cout << r;
 					}
 
@@ -171,9 +163,9 @@ int main()
 
 			// Checks if the user entered all the required arguments, reminds user of format if not
 			if (inputValidation::checkIndex(4, parameters, SQUARE_FORMAT_ERROR)) {
-				// get parameters
-				// ...
+
 				try {
+					//assigns parameters based on context
 					int x = stoi(parameters[1]);
 					int y = stoi(parameters[2]);
 					int e = stoi(parameters[3]);
@@ -183,6 +175,9 @@ int main()
 					if (inputValidation::checkTopLeft(x, y) && inputValidation::checkAttributes(e)) {
 						Square* s = new Square(x, y, e);
 						shapes.push_back(s);
+
+						//"<<" operator overloaded to call toString function
+						//Outputs derived class functionality as function is virtual
 						cout << s;
 					}
 				}
@@ -204,9 +199,9 @@ int main()
 
 			// Checks if the user entered all the required arguments, reminds user of format if not
 			if (inputValidation::checkIndex(4, parameters, CIRCLE_FORMAT_ERROR)) {
-				// get parameters
-				// ...
+
 				try {
+					//assigns parameters based on context
 					int x = stoi(parameters[1]);
 					int y = stoi(parameters[2]);
 					int r = stoi(parameters[3]);
@@ -216,6 +211,9 @@ int main()
 					if (inputValidation::checkTopLeft(x, y) && inputValidation::checkAttributes(r)) {
 						Circle* c = new Circle(x, y, r);
 						shapes.push_back(c);
+
+						//"<<" operator overloaded to call toString function
+						//Outputs derived class functionality as function is virtual
 						cout << c;
 					}
 				}
@@ -237,14 +235,13 @@ int main()
 			// Checks if the user entered all the required arguments, reminds user of format if not
 			if (inputValidation::checkIndex(4, parameters, SCALE_FORMAT_ERROR)) {
 				try {
-					// scale object at index... the scaling needs to be isotropic in case of circle and square 
-					int shapeNo = stoi(parameters[1]); // read from parameters
+					//assigns parameters based on context
+					int shapeNo = stoi(parameters[1]);
 					float scaleX = stof(parameters[2]);
 					float scaleY = stof(parameters[3]);
 
 
-					// you may want to check if the index exists or not!
-					//general index check used for this
+					//general index check used to check if shape index exists
 					if (inputValidation::checkIndex(shapeNo, shapes)) {
 
 						//Now that the shape index is validated, checks can be made for isotropic scaling for circles and square
@@ -253,14 +250,13 @@ int main()
 						//If the shape is equilateral or circular, the scale factors must be equal for scaling to occur
 						if (targetShape->checkIfCircular() == false && targetShape->checkIfEquilateral() == false || scaleX == scaleY) {
 							
-						// Multiple inhertitance is tricky! The Shape class does nto have a scale function, the Movable does!
-						// As a result all your derived classes have scale functions... 
-						// You may need to use type casting wisely to use polymorphic functionality!
 
-						//Dynamic cast is needed to force a downcasting again
+							//Dynamic cast is needed to force a downcasting again
+							//This allows use of polymorphic functionality
 							Movable* m = dynamic_cast<Movable*>(shapes[shapeNo - 1]);
 							m->scale(scaleX, scaleY);
 
+							//"<<" operator overloaded to call toString function
 							//Outputs derived class functionality as function is virtual
 							cout << shapes[shapeNo - 1];
 						}
@@ -294,19 +290,17 @@ int main()
 					int x = stoi(parameters[2]);
 					int y = stoi(parameters[3]);
 
-					// you may want to check if the index exists or not!
-					//general index check used for this
+					//general index check used to check if shape index exists
 					//same if statement used to check for valid move coordinates too
 					if (inputValidation::checkIndex(shapeNo, shapes) && inputValidation::checkTopLeft(x,y)) {
 
-						// Study the following code. A Shape object is not Movable, but all derived classes are...
-						// you can't automatically type cast from a Shape to a Movable, but you can force a downcasting
+						//Dynamic cast is needed to force a downcasting again
+						//This allows use of polymorphic functionality
 						Movable* m = dynamic_cast<Movable*>(shapes[shapeNo - 1]);
 						m->move(x, y);
-						// scale should work similarly...
 
-						// note that here you should see the corresponding toString output for the derived classes...
-						// if toString is not a virtual function, you may see the base class functionality :(
+						//"<<" operator overloaded to call toString function
+						//Outputs derived class functionality as function is virtual
 						cout << shapes[shapeNo - 1];
 					}
 
@@ -324,7 +318,7 @@ int main()
 
 		//Display all shapes currently stored
 		else if (command.compare("display") == 0) {
-			// this is not given in our example, but why don't you implement a display function which shows all objects stored in shapes?
+
 			cout << "Here is a list of all created shapes:\n";
 			//loops though shape vector and displays each value
 			for (Shape* s : shapes) {
@@ -349,11 +343,6 @@ int main()
 		cout << "\n\n";
 			inputValidation::printInstructions();
 		}
-
-
-
-		// do any necessary postprocessing at the end of each loop...
-		// yes, there is some necessary postprocessing...
 		
 		//Clear parameters for next input
 		parameters.clear();
