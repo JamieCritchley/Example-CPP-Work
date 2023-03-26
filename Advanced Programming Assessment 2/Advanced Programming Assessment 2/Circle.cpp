@@ -67,8 +67,8 @@ void Circle::scale(float scaleX, float scaleY) {
 			"Y direction." << std::endl;
 	}
 
-	//Scale directly affects diameter, so radius is calculated from it
-	radius = abs((radius * 2 * scaleX) / 2);
+	//Scales radius by scaleX
+	radius = abs(radius * scaleX);
 
 	//If the scale is negative, the top left coordinate moves
 	if (scaleX < 0) {

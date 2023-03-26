@@ -1,2 +1,17 @@
-﻿  Driver.cpp
+﻿  Circle.cpp
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Circle.cpp(7,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Circle.cpp(11,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Circle.cpp(71,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Driver.cpp
+  Rectangle.cpp
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Rectangle.cpp(6,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Rectangle.cpp(11,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Rectangle.cpp(66,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Rectangle.cpp(67,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Shape.cpp
+  Square.cpp
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Square.cpp(7,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Square.cpp(12,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\Advanced Programming Assessment 2\Square.cpp(78,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
   Advanced Programming Assessment 2.vcxproj -> C:\Users\Jamie\Documents\GitHub\Example-Work\Advanced Programming Assessment 2\x64\Debug\Advanced Programming Assessment 2.exe
